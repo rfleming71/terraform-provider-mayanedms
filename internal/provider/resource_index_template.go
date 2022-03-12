@@ -63,7 +63,7 @@ func resourceIndexTemplateCreate(d *schema.ResourceData, m interface{}) error {
 	}
 
 	for _, docType := range documentTypes {
-		c.AddIndexTemplateDocumentType(indexTemplate.ID, docType)
+		_ = c.AddIndexTemplateDocumentType(indexTemplate.ID, docType)
 	}
 
 	return resourceIndexTemplateRead(d, m)

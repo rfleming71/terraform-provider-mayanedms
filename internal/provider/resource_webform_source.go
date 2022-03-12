@@ -133,7 +133,7 @@ func webformSourceToData(source *client.Source, d *schema.ResourceData) error {
 	}
 
 	var backendData webformSourceBackendDataType
-	json.Unmarshal([]byte(source.BackendData), &backendData)
+	_ = json.Unmarshal([]byte(source.BackendData), &backendData)
 
 	uncompress := uncompressedMapping[backendData.Uncompress]
 

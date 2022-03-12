@@ -60,7 +60,7 @@ func resourceWorkflowTemplateCreate(d *schema.ResourceData, m interface{}) error
 	}
 
 	for _, docType := range documentTypes {
-		c.AddWorkflowIndexDocumentType(workflowTemplate.ID, docType)
+		_ = c.AddWorkflowIndexDocumentType(workflowTemplate.ID, docType)
 	}
 
 	return resourceWorkflowTemplateRead(d, m)

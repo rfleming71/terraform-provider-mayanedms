@@ -56,12 +56,12 @@ func resourceRoleCreate(d *schema.ResourceData, m interface{}) error {
 	d.SetId(fmt.Sprintf("%v", role.ID))
 	groups := d.Get("groups").(*schema.Set).List()
 	for _, group := range groups {
-		c.AddRoleGroup(newRole.ID, group.(int))
+		_ = c.AddRoleGroup(newRole.ID, group.(int))
 	}
 
 	permissions := d.Get("permissions").(*schema.Set).List()
 	for _, permission := range permissions {
-		c.AddRolePermission(newRole.ID, permission.(string))
+		_ = c.AddRolePermission(newRole.ID, permission.(string))
 	}
 
 	return resourceRoleRead(d, m)

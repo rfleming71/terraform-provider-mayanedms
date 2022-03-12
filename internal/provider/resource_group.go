@@ -55,7 +55,7 @@ func resourceGroupCreate(d *schema.ResourceData, m interface{}) error {
 	}
 
 	for _, id := range userIds {
-		c.AddGroupUser(group.ID, id)
+		_ = c.AddGroupUser(group.ID, id)
 	}
 
 	return resourceGroupRead(d, m)

@@ -147,7 +147,7 @@ func stagingFolderSourceToData(source *client.Source, d *schema.ResourceData) er
 	}
 
 	var backendData stagingFolderSourceBackendDataType
-	json.Unmarshal([]byte(source.BackendData), &backendData)
+	_ = json.Unmarshal([]byte(source.BackendData), &backendData)
 
 	uncompress := uncompressedMapping[backendData.Uncompress]
 

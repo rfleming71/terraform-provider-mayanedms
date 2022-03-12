@@ -148,7 +148,7 @@ func watchFolderSourceToData(source *client.Source, d *schema.ResourceData) erro
 	}
 
 	var backendData watchFolderSourceBackendDataType
-	json.Unmarshal([]byte(source.BackendData), &backendData)
+	_ = json.Unmarshal([]byte(source.BackendData), &backendData)
 
 	uncompress := uncompressedMapping[backendData.Uncompress]
 
