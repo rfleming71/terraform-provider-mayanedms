@@ -20,12 +20,14 @@ func resourceMetadataType() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"label": {
-				Type:     schema.TypeString,
-				Required: true,
+				Description: "Short description of this metadata type.",
+				Type:        schema.TypeString,
+				Required:    true,
 			},
 			"name": {
-				Type:     schema.TypeString,
-				Required: true,
+				Description: "Name used by other apps to reference this metadata type. Do not use python reserved words, or spaces.",
+				Type:        schema.TypeString,
+				Required:    true,
 			},
 			"default": {
 				Type:     schema.TypeString,
@@ -38,14 +40,16 @@ func resourceMetadataType() *schema.Resource {
 				Default:  "",
 			},
 			"parser": {
-				Type:     schema.TypeString,
-				Optional: true,
-				Default:  "",
+				Description: "The parser will reformat the value entered to conform to the expected format.",
+				Type:        schema.TypeString,
+				Optional:    true,
+				Default:     "",
 			},
 			"validator": {
-				Type:     schema.TypeString,
-				Optional: true,
-				Default:  "",
+				Description: "The validator will reject data entry if the value entered does not conform to the expected format.",
+				Type:        schema.TypeString,
+				Optional:    true,
+				Default:     "",
 			},
 		},
 	}

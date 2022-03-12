@@ -21,22 +21,26 @@ func resourceWorkflowTemplateState() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"label": {
-				Type:     schema.TypeString,
-				Required: true,
+				Description: "Short text to describe the workflow state.",
+				Type:        schema.TypeString,
+				Required:    true,
 			},
 			"completion": {
-				Type:     schema.TypeInt,
-				Required: true,
+				Description: "The percent of completion that this state represents in relation to the workflow.",
+				Type:        schema.TypeInt,
+				Required:    true,
 			},
 			"initial": {
-				Type:     schema.TypeBool,
-				Optional: true,
-				Default:  false,
+				Description: "The state at which the workflow will start in.",
+				Type:        schema.TypeBool,
+				Optional:    true,
+				Default:     false,
 			},
 			"workflow_template": {
-				Type:     schema.TypeInt,
-				Required: true,
-				ForceNew: true,
+				Description: "Id of the workflow template this state belongs to.",
+				Type:        schema.TypeInt,
+				Required:    true,
+				ForceNew:    true,
 			},
 		},
 	}

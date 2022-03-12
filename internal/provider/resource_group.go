@@ -24,8 +24,9 @@ func resourceGroup() *schema.Resource {
 				Required: true,
 			},
 			"users": {
-				Type:     schema.TypeSet,
-				Optional: true,
+				Description: "Collection of user IDs to include in the group.",
+				Type:        schema.TypeSet,
+				Optional:    true,
 				Elem: &schema.Schema{
 					Type: schema.TypeInt,
 				},

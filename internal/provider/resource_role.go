@@ -20,12 +20,14 @@ func resourceRole() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"label": {
-				Type:     schema.TypeString,
-				Required: true,
+				Description: "A short text describing the role.",
+				Type:        schema.TypeString,
+				Required:    true,
 			},
 			"groups": {
-				Type:     schema.TypeSet,
-				Optional: true,
+				Description: "Add groups to be part of a role. They will inherit the role's permissions and access controls.",
+				Type:        schema.TypeSet,
+				Optional:    true,
 				Elem: &schema.Schema{
 					Type: schema.TypeInt,
 				},

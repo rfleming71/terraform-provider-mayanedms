@@ -20,12 +20,14 @@ func resourceWorkflowTemplate() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"label": {
-				Type:     schema.TypeString,
-				Required: true,
+				Description: "Short text to describe the workflow",
+				Type:        schema.TypeString,
+				Required:    true,
 			},
 			"internal_name": {
-				Type:     schema.TypeString,
-				Required: true,
+				Description: "This value will be used by other apps to reference this workflow. Can only contain letters, numbers, and underscores.",
+				Type:        schema.TypeString,
+				Required:    true,
 			},
 			"document_types": {
 				Type:     schema.TypeSet,

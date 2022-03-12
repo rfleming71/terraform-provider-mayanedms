@@ -19,8 +19,9 @@ func resourceWorkflowTemplateTransition() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"label": {
-				Type:     schema.TypeString,
-				Required: true,
+				Description: "Short text to describe the transition.",
+				Type:        schema.TypeString,
+				Required:    true,
 			},
 			"destination_state": {
 				Type:     schema.TypeString,
@@ -31,14 +32,16 @@ func resourceWorkflowTemplateTransition() *schema.Resource {
 				Required: true,
 			},
 			"condition": {
-				Type:     schema.TypeString,
-				Optional: true,
-				Default:  "",
+				Description: "The condition that will determine if this transition is enabled or not.",
+				Type:        schema.TypeString,
+				Optional:    true,
+				Default:     "",
 			},
 			"workflow_template": {
-				Type:     schema.TypeInt,
-				Required: true,
-				ForceNew: true,
+				Description: "Id of the workflow template this transition belongs to.",
+				Type:        schema.TypeInt,
+				Required:    true,
+				ForceNew:    true,
 			},
 		},
 	}

@@ -20,12 +20,14 @@ func resourceTag() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"label": {
-				Type:     schema.TypeString,
-				Required: true,
+				Description: "Short text used as the tag name.",
+				Type:        schema.TypeString,
+				Required:    true,
 			},
 			"color": {
-				Type:     schema.TypeString,
-				Required: true,
+				Description: "The RGB color values for the tag.",
+				Type:        schema.TypeString,
+				Required:    true,
 			},
 		},
 	}
