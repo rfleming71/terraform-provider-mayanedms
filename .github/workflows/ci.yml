@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - "main"
-    tags:
-      - "v*"
 
 env:
   GO_VERSION: "1.16"
@@ -27,8 +25,8 @@ jobs:
           go-version: "${{ env.GO_VERSION }}"
       - run: "go build ./..."
 
-  lint:
-    runs-on: "ubuntu-latest"
-    steps:
-      - uses: "actions/checkout@v3"
-      - uses: "golangci/golangci-lint-action@v3.1.0"
+  # lint:
+  #   runs-on: "ubuntu-latest"
+  #   steps:
+  #     - uses: "actions/checkout@v3"
+  #     - uses: "golangci/golangci-lint-action@v3.1.0"
