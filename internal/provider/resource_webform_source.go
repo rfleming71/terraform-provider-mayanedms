@@ -115,7 +115,7 @@ func resourceWebformSourceImport(d *schema.ResourceData, m interface{}) ([]*sche
 		return rd, err
 	}
 
-	if source.BackendPath != "mayan.apps.sources.source_backends.SourceBackendWebForm" {
+	if source.BackendPath != "mayan.apps.sources.source_backends.web_form_backends.SourceBackendWebForm" {
 		return rd, errors.New("identified source is not of type webform")
 	}
 
