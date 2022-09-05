@@ -134,9 +134,9 @@ func (c *Client) DeleteIndexTemplateNode(indexId, indexNodeId int) error {
 	return err
 }
 
-func (c *Client) UpdateIndexTemplateNode(indexTemplateNode IndexTemplateNode) (*IndexTemplateNode, error) {
+func (c *Client) UpdateIndexTemplateNode(indexTemplateId int, indexTemplateNode IndexTemplateNode) (*IndexTemplateNode, error) {
 	var updatedIndexTemplateNode *IndexTemplateNode
-	err := c.performRequest(fmt.Sprintf("index_templates/%v/nodes/%v/", indexTemplateNode.IndexID, indexTemplateNode.ID), http.MethodPut, &indexTemplateNode, &updatedIndexTemplateNode)
+	err := c.performRequest(fmt.Sprintf("index_templates/%v/nodes/%v/", indexTemplateId, indexTemplateNode.ID), http.MethodPut, &indexTemplateNode, &updatedIndexTemplateNode)
 	if err != nil {
 		return &IndexTemplateNode{}, err
 	}

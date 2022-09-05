@@ -36,7 +36,7 @@ type MayanEdmsClient interface {
 
 	GetIndexTemplateNodeById(indexId, nodeId int) (*IndexTemplateNode, error)
 	CreateIndexTemplateNode(indexTemplateNode IndexTemplateNode) (*IndexTemplateNode, error)
-	UpdateIndexTemplateNode(indexTemplateNode IndexTemplateNode) (*IndexTemplateNode, error)
+	UpdateIndexTemplateNode(indexTemplateId int, indexTemplateNode IndexTemplateNode) (*IndexTemplateNode, error)
 	DeleteIndexTemplateNode(indexId, nodeId int) error
 
 	GetGroupById(id int) (*Group, error)

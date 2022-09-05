@@ -1,10 +1,11 @@
 package provider
 
 import (
+	"context"
 	"fmt"
-	"strconv"
 	"strings"
 
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/rfleming71/terraform-provider-mayan-edms/client"
 )
@@ -16,7 +17,7 @@ func resourceIndexTemplateNode() *schema.Resource {
 		Update: resourceIndexTemplateNodeUpdate,
 		Delete: resourceIndexTemplateNodeDelete,
 		Importer: &schema.ResourceImporter{
-			State: resourceIndexTemplateNodeImport,
+			StateContext: resourceIndexTemplateNodeImport,
 		},
 
 		Schema: map[string]*schema.Schema{
@@ -54,7 +55,7 @@ func resourceIndexTemplateNode() *schema.Resource {
 func resourceIndexTemplateNodeCreate(d *schema.ResourceData, m interface{}) error {
 	c := m.(client.MayanEdmsClient)
 
-	newIndexTemplateNode := dataToIndexTemplateNode(d)
+	indexTemplateId, newIndexTemplateNode := dataToIndexTemplateNode(d)
 
 	indexTemplateNode, err := c.CreateIndexTemplateNode(*newIndexTemplateNode)
 
@@ -62,22 +63,24 @@ func resourceIndexTemplateNodeCreate(d *schema.ResourceData, m interface{}) erro
 		return err
 	}
 
-	d.SetId(fmt.Sprintf("%v", indexTemplateNode.ID))
+	d.SetId(fmt.Sprintf("%v-%v", indexTemplateId, indexTemplateNode.ID))
 
 	return resourceIndexTemplateNodeRead(d, m)
 }
 
 func resourceIndexTemplateNodeRead(d *schema.ResourceData, m interface{}) error {
 	c := m.(client.MayanEdmsClient)
-	id, _ := strconv.Atoi(d.Id())
-	indexId := d.Get("index_id").(int)
-
-	source, err := c.GetIndexTemplateNodeById(indexId, id)
+	indexTemplateId, id, err := getIdInformation(d)
 	if err != nil {
 		return err
 	}
 
-	err = indexTemplateNodeToData(source, d)
+	source, err := c.GetIndexTemplateNodeById(indexTemplateId, id)
+	if err != nil {
+		return err
+	}
+
+	err = indexTemplateNodeToData(indexTemplateId, source, d)
 	if err != nil {
 		return err
 	}
@@ -87,9 +90,14 @@ func resourceIndexTemplateNodeRead(d *schema.ResourceData, m interface{}) error 
 
 func resourceIndexTemplateNodeUpdate(d *schema.ResourceData, m interface{}) error {
 	c := m.(client.MayanEdmsClient)
-	indexTemplateNode := dataToIndexTemplateNode(d)
-	indexTemplateNode.ID, _ = strconv.Atoi(d.Id())
-	_, err := c.UpdateIndexTemplateNode(*indexTemplateNode)
+	_, indexTemplateNode := dataToIndexTemplateNode(d)
+	indexTemplateId, indexTemplateNodeId, err := getIdInformation(d)
+	if err != nil {
+		return err
+	}
+
+	indexTemplateNode.ID = indexTemplateNodeId
+	_, err = c.UpdateIndexTemplateNode(indexTemplateId, *indexTemplateNode)
 	if err != nil {
 		return err
 	}
@@ -99,9 +107,12 @@ func resourceIndexTemplateNodeUpdate(d *schema.ResourceData, m interface{}) erro
 
 func resourceIndexTemplateNodeDelete(d *schema.ResourceData, m interface{}) error {
 	c := m.(client.MayanEdmsClient)
-	id, _ := strconv.Atoi(d.Id())
-	indexId := d.Get("index_id").(int)
-	err := c.DeleteIndexTemplateNode(indexId, id)
+	indexTemplateId, id, err := getIdInformation(d)
+	if err != nil {
+		return err
+	}
+
+	err = c.DeleteIndexTemplateNode(indexTemplateId, id)
 	if err == nil {
 		d.SetId("")
 	}
@@ -109,22 +120,24 @@ func resourceIndexTemplateNodeDelete(d *schema.ResourceData, m interface{}) erro
 	return err
 }
 
-func resourceIndexTemplateNodeImport(d *schema.ResourceData, m interface{}) ([]*schema.ResourceData, error) {
+func resourceIndexTemplateNodeImport(ctx context.Context, d *schema.ResourceData, m interface{}) ([]*schema.ResourceData, error) {
 	c := m.(client.MayanEdmsClient)
-	id, err := strconv.Atoi(d.Id())
+	indexTemplateId, id, err := getIdInformation(d)
 	rd := []*schema.ResourceData{d}
 	if err != nil {
 		return rd, err
 	}
 
-	indexId := d.Get("index_id").(int)
-
-	indexTemplateNode, err := c.GetIndexTemplateNodeById(indexId, id)
+	tflog.Debug(ctx, "Requesting IndexTemplateNode by Id", map[string]interface{}{
+		"index_id": indexTemplateId,
+		"id": id,
+	})
+	indexTemplateNode, err := c.GetIndexTemplateNodeById(indexTemplateId, id)
 	if err != nil {
 		return rd, err
 	}
 
-	err = indexTemplateNodeToData(indexTemplateNode, d)
+	err = indexTemplateNodeToData(indexTemplateId, indexTemplateNode, d)
 	if err != nil {
 		return rd, err
 	}
@@ -132,8 +145,8 @@ func resourceIndexTemplateNodeImport(d *schema.ResourceData, m interface{}) ([]*
 	return rd, err
 }
 
-func indexTemplateNodeToData(indexTemplateNode *client.IndexTemplateNode, d *schema.ResourceData) error {
-	d.SetId(fmt.Sprintf("%v", indexTemplateNode.ID))
+func indexTemplateNodeToData(indexTemplateId int, indexTemplateNode *client.IndexTemplateNode, d *schema.ResourceData) error {
+	d.SetId(fmt.Sprintf("%v-%v", indexTemplateId, indexTemplateNode.ID))
 	if err := d.Set("expression", indexTemplateNode.Expression); err != nil {
 		return err
 	}
@@ -153,8 +166,8 @@ func indexTemplateNodeToData(indexTemplateNode *client.IndexTemplateNode, d *sch
 	return nil
 }
 
-func dataToIndexTemplateNode(d *schema.ResourceData) *client.IndexTemplateNode {
-	id, _ := strconv.Atoi(d.Id())
+func dataToIndexTemplateNode(d *schema.ResourceData) (int, *client.IndexTemplateNode) {
+	_, id, _ := getIdInformation(d)
 	newIndexTemplateNode := client.IndexTemplateNode{
 		ID:            id,
 		Expression:    d.Get("expression").(string),
@@ -165,5 +178,5 @@ func dataToIndexTemplateNode(d *schema.ResourceData) *client.IndexTemplateNode {
 		ParentID:      d.Get("parent_id").(int),
 	}
 
-	return &newIndexTemplateNode
+	return d.Get("index_id").(int), &newIndexTemplateNode
 }
