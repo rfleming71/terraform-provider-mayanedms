@@ -48,6 +48,10 @@ func resourceIndexTemplateNode() *schema.Resource {
 				Type: schema.TypeInt,
 				Required: true,
 			},
+			"node_id": {
+				Type: schema.TypeInt,
+				Computed: true,
+			},
 		},
 	}
 }
@@ -147,6 +151,9 @@ func resourceIndexTemplateNodeImport(ctx context.Context, d *schema.ResourceData
 
 func indexTemplateNodeToData(indexTemplateId int, indexTemplateNode *client.IndexTemplateNode, d *schema.ResourceData) error {
 	d.SetId(fmt.Sprintf("%v-%v", indexTemplateId, indexTemplateNode.ID))
+	if err := d.Set("node_id", indexTemplateNode.ID); err != nil {
+		return err
+	}
 	if err := d.Set("expression", indexTemplateNode.Expression); err != nil {
 		return err
 	}
