@@ -13,10 +13,15 @@ type IndexTemplate struct {
 }
 
 type IndexTemplateNode struct {
-	ID            int                  `json:"id"`
-	Expression    string               `json:"expression"`
-	LinkDocuments bool                 `json:"link_documents"`
-	Children      []*IndexTemplateNode `json:"children"`
+	ID            int    `json:"id"`
+	Expression    string `json:"expression"`
+	Enabled       bool   `json:"enabled"`
+	LinkDocuments bool   `json:"link_documents"`
+	IndexID       int    `json:"index_id"`
+	ParentID      int    `json:"parent_id"`
+
+	// TODO: Flagged as deprecated in Mayan, still required in the API
+	Parent int `json:"parent"`
 }
 
 func (c *Client) CreateIndexTemplate(tag IndexTemplate) (*IndexTemplate, error) {
@@ -101,4 +106,39 @@ func (c *Client) RemoveIndexTemplateDocumentType(indexTemplateId int, documentTy
 	}
 
 	return nil
+}
+
+func (c *Client) CreateIndexTemplateNode(indexTemplateNode IndexTemplateNode) (*IndexTemplateNode, error) {
+	var createdIndexTemplateNode *IndexTemplateNode
+	err := c.performRequest(fmt.Sprintf("index_templates/%v/nodes/", indexTemplateNode.IndexID), http.MethodPost, &indexTemplateNode, &createdIndexTemplateNode)
+	if err != nil {
+		return &IndexTemplateNode{}, err
+	}
+
+	return createdIndexTemplateNode, nil
+}
+
+func (c *Client) GetIndexTemplateNodeById(indexId, indexNodeId int) (*IndexTemplateNode, error) {
+	var indexTemplateNode *IndexTemplateNode
+	err := c.performRequest(fmt.Sprintf("index_templates/%v/nodes/%v/", indexId, indexNodeId), http.MethodGet, nil, &indexTemplateNode)
+	if err != nil {
+		return &IndexTemplateNode{}, err
+	}
+
+	return indexTemplateNode, nil
+}
+
+func (c *Client) DeleteIndexTemplateNode(indexId, indexNodeId int) error {
+	err := c.performRequest(fmt.Sprintf("index_templates/%v/nodes/%v/", indexId, indexNodeId), http.MethodDelete, nil, nil)
+	return err
+}
+
+func (c *Client) UpdateIndexTemplateNode(indexTemplateNode IndexTemplateNode) (*IndexTemplateNode, error) {
+	var updatedIndexTemplateNode *IndexTemplateNode
+	err := c.performRequest(fmt.Sprintf("index_templates/%v/nodes/%v/", indexTemplateNode.IndexID, indexTemplateNode.ID), http.MethodPut, &indexTemplateNode, &updatedIndexTemplateNode)
+	if err != nil {
+		return &IndexTemplateNode{}, err
+	}
+
+	return updatedIndexTemplateNode, nil
 }
