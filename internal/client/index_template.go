@@ -6,10 +6,11 @@ import (
 )
 
 type IndexTemplate struct {
-	ID      int    `json:"id"`
-	Enabled bool   `json:"enabled"`
-	Label   string `json:"label"`
-	Slug    string `json:"slug"`
+	ID         int    `json:"id"`
+	Enabled    bool   `json:"enabled"`
+	Label      string `json:"label"`
+	Slug       string `json:"slug"`
+	RootNodeID int    `json:"index_template_root_node_id"`
 }
 
 type IndexTemplateNode struct {

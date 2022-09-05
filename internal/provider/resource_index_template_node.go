@@ -45,9 +45,7 @@ func resourceIndexTemplateNode() *schema.Resource {
 			},
 			"parent_id": {
 				Type: schema.TypeInt,
-				// TODO: until we are able to compute this
 				Required: true,
-				// Optional: true,
 			},
 		},
 	}
@@ -55,6 +53,7 @@ func resourceIndexTemplateNode() *schema.Resource {
 
 func resourceIndexTemplateNodeCreate(d *schema.ResourceData, m interface{}) error {
 	c := m.(client.MayanEdmsClient)
+
 	newIndexTemplateNode := dataToIndexTemplateNode(d)
 
 	indexTemplateNode, err := c.CreateIndexTemplateNode(*newIndexTemplateNode)

@@ -39,6 +39,10 @@ func resourceIndexTemplate() *schema.Resource {
 					Type: schema.TypeInt,
 				},
 			},
+			"root_node_id": {
+				Type:     schema.TypeInt,
+				Computed: true,
+			},
 		},
 	}
 }
@@ -180,6 +184,9 @@ func indexTemplateToData(indexTemplate *client.IndexTemplate, d *schema.Resource
 	if err := d.Set("enabled", indexTemplate.Enabled); err != nil {
 		return err
 	}
+	if err := d.Set("root_node_id", indexTemplate.RootNodeID); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -187,10 +194,11 @@ func indexTemplateToData(indexTemplate *client.IndexTemplate, d *schema.Resource
 func dataToIndexTemplate(d *schema.ResourceData) *client.IndexTemplate {
 	id, _ := strconv.Atoi(d.Id())
 	newIndexTemplate := client.IndexTemplate{
-		ID:      id,
-		Label:   d.Get("label").(string),
-		Slug:    d.Get("slug").(string),
-		Enabled: d.Get("enabled").(bool),
+		ID:         id,
+		Label:      d.Get("label").(string),
+		Slug:       d.Get("slug").(string),
+		Enabled:    d.Get("enabled").(bool),
+		RootNodeID: d.Get("root_node_id").(int),
 	}
 
 	return &newIndexTemplate
