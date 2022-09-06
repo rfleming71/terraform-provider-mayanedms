@@ -28,16 +28,19 @@ resource "mayanedms_watchfolder_source" "folder_1" {
 
 ### Required
 
-- **document_type_id** (Number)
-- **folder_path** (String)
-- **interval** (Number)
-- **label** (String)
+- `document_type_id` (Number)
+- `folder_path` (String) Server side filesystem path to scan for files.
+- `interval` (Number)
+- `label` (String)
 
 ### Optional
 
-- **enabled** (Boolean) Defaults to `true`.
-- **id** (String) The ID of this resource.
-- **include_subdirectories** (Boolean) Defaults to `false`.
-- **uncompress** (String) Defaults to `ask`.
+- `enabled` (Boolean) Defaults to `true`.
+- `include_subdirectories` (Boolean) If enabled, not only will the folder path be scanned for files but also its subdirectories. Defaults to `false`.
+- `uncompress` (String) Defaults to `ask`.
+
+### Read-Only
+
+- `id` (String) The ID of this resource.
 
 

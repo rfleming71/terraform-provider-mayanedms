@@ -17,13 +17,16 @@ description: |-
 
 ### Required
 
-- **completion** (Number) The percent of completion that this state represents in relation to the workflow.
-- **label** (String) Short text to describe the workflow state.
-- **workflow_template** (Number) Id of the workflow template this state belongs to.
+- `completion` (Number) The percent of completion that this state represents in relation to the workflow.
+- `label` (String) Short text to describe the workflow state.
+- `workflow_template` (Number) Id of the workflow template this state belongs to.
 
 ### Optional
 
-- **id** (String) The ID of this resource.
-- **initial** (Boolean) The state at which the workflow will start in. Defaults to `false`.
+- `initial` (Boolean) The state at which the workflow will start in. Defaults to `false`.
+
+### Read-Only
+
+- `id` (String) The ID of this resource.
 
 

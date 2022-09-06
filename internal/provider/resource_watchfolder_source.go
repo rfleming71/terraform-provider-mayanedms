@@ -41,13 +41,15 @@ func resourceWatchFolderSource() *schema.Resource {
 				Optional: true,
 			},
 			"folder_path": {
-				Type:     schema.TypeString,
-				Required: true,
+				Description: "Server side filesystem path to scan for files.",
+				Type:        schema.TypeString,
+				Required:    true,
 			},
 			"include_subdirectories": {
-				Type:     schema.TypeBool,
-				Default:  false,
-				Optional: true,
+				Description: "If enabled, not only will the folder path be scanned for files but also its subdirectories.",
+				Type:        schema.TypeBool,
+				Default:     false,
+				Optional:    true,
 			},
 			"document_type_id": {
 				Type:     schema.TypeInt,

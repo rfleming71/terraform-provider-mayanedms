@@ -24,12 +24,15 @@ resource "mayanedms_webform_source" "default" {
 
 ### Required
 
-- **label** (String)
+- `label` (String)
 
 ### Optional
 
-- **enabled** (Boolean) Defaults to `true`.
-- **id** (String) The ID of this resource.
-- **uncompress** (String) Defaults to `ask`.
+- `enabled` (Boolean) Defaults to `true`.
+- `uncompress` (String) Whether to expand or not compressed archives. Defaults to `ask`.
+
+### Read-Only
+
+- `id` (String) The ID of this resource.
 
 

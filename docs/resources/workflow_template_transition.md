@@ -17,14 +17,17 @@ description: |-
 
 ### Required
 
-- **destination_state** (String)
-- **label** (String) Short text to describe the transition.
-- **origin_state** (String)
-- **workflow_template** (Number) Id of the workflow template this transition belongs to.
+- `destination_state` (String)
+- `label` (String) Short text to describe the transition.
+- `origin_state` (String)
+- `workflow_template` (Number) Id of the workflow template this transition belongs to.
 
 ### Optional
 
-- **condition** (String) The condition that will determine if this transition is enabled or not. Defaults to ``.
-- **id** (String) The ID of this resource.
+- `condition` (String) The condition that will determine if this transition is enabled or not. Defaults to ``.
+
+### Read-Only
+
+- `id` (String) The ID of this resource.
 
 

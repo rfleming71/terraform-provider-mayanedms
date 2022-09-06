@@ -20,17 +20,20 @@ func resourceIndexTemplate() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"label": {
-				Type:     schema.TypeString,
-				Required: true,
+				Description: "The name that will be visible to users.",
+				Type:        schema.TypeString,
+				Required:    true,
 			},
 			"enabled": {
-				Type:     schema.TypeBool,
-				Default:  true,
-				Optional: true,
+				Description: "Causes this index to be visible and updated when document data changes.",
+				Type:        schema.TypeBool,
+				Default:     true,
+				Optional:    true,
 			},
 			"slug": {
-				Type:     schema.TypeString,
-				Required: true,
+				Description: "Internal name used to reference this index.",
+				Type:        schema.TypeString,
+				Required:    true,
 			},
 			"document_types": {
 				Type:     schema.TypeSet,
