@@ -69,6 +69,9 @@ func New(version string) func() *schema.Provider {
 				"mayanedms_role":                         resourceRole(),
 				"mayanedms_metadata_type":                resourceMetadataType(),
 			},
+			DataSourcesMap: map[string]*schema.Resource{
+				"mayanedms_document_type": dataDocumentType(),
+			},
 			ConfigureFunc: mayanEdmsConfigure,
 		}
 		return p

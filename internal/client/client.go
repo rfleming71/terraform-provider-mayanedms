@@ -11,6 +11,7 @@ import (
 
 type MayanEdmsClient interface {
 	GetDocumentTypeById(id int) (*DocumentType, error)
+	GetDocumentTypes() ([]DocumentType, error)
 	CreateDocumentType(documentType DocumentType) (*DocumentType, error)
 	UpdateDocumentType(documentType DocumentType) (*DocumentType, error)
 	DeleteDocumentType(id int) error

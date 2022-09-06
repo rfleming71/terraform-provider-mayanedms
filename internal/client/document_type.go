@@ -16,6 +16,11 @@ type DocumentType struct {
 	FileNameGeneratorBackendArguments string  `json:"filename_generator_backend_arguments"`
 }
 
+type DocumentTypeCollection struct {
+	Count   int            `json:"count"`
+	Results []DocumentType `json:"results"`
+}
+
 func (c *Client) CreateDocumentType(documentType DocumentType) (*DocumentType, error) {
 	var createdDoc *DocumentType
 	err := c.performRequest("document_types/", http.MethodPost, &documentType, &createdDoc)
@@ -34,6 +39,16 @@ func (c *Client) GetDocumentTypeById(id int) (*DocumentType, error) {
 	}
 
 	return documentType, nil
+}
+
+func (c *Client) GetDocumentTypes() ([]DocumentType, error) {
+	var documentTypes DocumentTypeCollection
+	err := c.performRequest("document_types/", http.MethodGet, nil, &documentTypes)
+	if err != nil {
+		return nil, err
+	}
+
+	return documentTypes.Results, nil
 }
 
 func (c *Client) DeleteDocumentType(id int) error {
