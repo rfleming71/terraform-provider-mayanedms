@@ -61,6 +61,7 @@ func New(version string) func() *schema.Provider {
 				"mayanedms_stagingfolder_source":         resourceStagingFolderSource(),
 				"mayanedms_tag":                          resourceTag(),
 				"mayanedms_index_template":               resourceIndexTemplate(),
+				"mayanedms_index_template_node":          resourceIndexTemplateNode(),
 				"mayanedms_group":                        resourceGroup(),
 				"mayanedms_workflow_template":            resourceWorkflowTemplate(),
 				"mayanedms_workflow_template_state":      resourceWorkflowTemplateState(),
