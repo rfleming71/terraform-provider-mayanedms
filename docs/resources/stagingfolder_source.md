@@ -17,16 +17,19 @@ description: |-
 
 ### Required
 
-- **delete_after_upload** (Boolean)
-- **folder_path** (String)
-- **label** (String)
-- **preview_height** (Number)
-- **preview_width** (Number)
+- `delete_after_upload` (Boolean) Delete the file after is has been successfully uploaded.
+- `folder_path` (String) Server side filesystem path.
+- `label` (String)
+- `preview_height` (Number) Height value to be passed to the converter backend.
+- `preview_width` (Number) Width value to be passed to the converter backend.
 
 ### Optional
 
-- **enabled** (Boolean) Defaults to `true`.
-- **id** (String) The ID of this resource.
-- **uncompress** (String) Defaults to `ask`.
+- `enabled` (Boolean) Defaults to `true`.
+- `uncompress` (String) Whether to expand or not compressed archives. Defaults to `ask`.
+
+### Read-Only
+
+- `id` (String) The ID of this resource.
 
 

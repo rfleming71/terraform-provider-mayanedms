@@ -45,12 +45,15 @@ resource "mayanedms_role" "automated" {
 
 ### Required
 
-- **label** (String) A short text describing the role.
+- `label` (String) A short text describing the role.
 
 ### Optional
 
-- **groups** (Set of Number) Add groups to be part of a role. They will inherit the role's permissions and access controls.
-- **id** (String) The ID of this resource.
-- **permissions** (Set of String)
+- `groups` (Set of Number) Add groups to be part of a role. They will inherit the role's permissions and access controls.
+- `permissions` (Set of String)
+
+### Read-Only
+
+- `id` (String) The ID of this resource.
 
 

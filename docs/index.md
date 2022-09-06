@@ -24,10 +24,10 @@ provider "mayanedms" {
 
 ### Required
 
-- **password** (String) Password for mayan edms api
-- **url** (String) Hostname of the mayan edms host
-- **username** (String) User account for mayan edms api
+- `password` (String) Password for mayan edms api
+- `url` (String) Hostname of the mayan edms host
+- `username` (String) User account for mayan edms api
 
 ### Optional
 
-- **insecure** (Boolean) Whether SSL should be verified or not Defaults to `false`.
+- `insecure` (Boolean) Whether SSL should be verified or not Defaults to `false`.

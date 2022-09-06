@@ -30,15 +30,18 @@ resource "mayanedms_metadata_type" "year" {
 
 ### Required
 
-- **label** (String) Short description of this metadata type.
-- **name** (String) Name used by other apps to reference this metadata type. Do not use python reserved words, or spaces.
+- `label` (String) Short description of this metadata type.
+- `name` (String) Name used by other apps to reference this metadata type. Do not use python reserved words, or spaces.
 
 ### Optional
 
-- **default** (String) Defaults to ``.
-- **id** (String) The ID of this resource.
-- **lookup** (String) Defaults to ``.
-- **parser** (String) The parser will reformat the value entered to conform to the expected format. Defaults to ``.
-- **validator** (String) The validator will reject data entry if the value entered does not conform to the expected format. Defaults to ``.
+- `default` (String) Defaults to ``.
+- `lookup` (String) Defaults to ``.
+- `parser` (String) The parser will reformat the value entered to conform to the expected format. Defaults to ``.
+- `validator` (String) The validator will reject data entry if the value entered does not conform to the expected format. Defaults to ``.
+
+### Read-Only
+
+- `id` (String) The ID of this resource.
 
 

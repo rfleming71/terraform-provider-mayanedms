@@ -50,13 +50,16 @@ resource "mayanedms_workflow_template_transition" "auto_processing_new" {
 
 ### Required
 
-- **internal_name** (String) This value will be used by other apps to reference this workflow. Can only contain letters, numbers, and underscores.
-- **label** (String) Short text to describe the workflow
+- `internal_name` (String) This value will be used by other apps to reference this workflow. Can only contain letters, numbers, and underscores.
+- `label` (String) Short text to describe the workflow
 
 ### Optional
 
-- **document_types** (Set of Number)
-- **id** (String) The ID of this resource.
+- `document_types` (Set of Number)
+
+### Read-Only
+
+- `id` (String) The ID of this resource.
 
 ## Import
 

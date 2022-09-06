@@ -28,11 +28,14 @@ resource "mayanedms_group" "test-group" {
 
 ### Required
 
-- **name** (String)
+- `name` (String)
 
 ### Optional
 
-- **id** (String) The ID of this resource.
-- **users** (Set of Number) Collection of user IDs to include in the group.
+- `users` (Set of Number) Collection of user IDs to include in the group.
+
+### Read-Only
+
+- `id` (String) The ID of this resource.
 
 

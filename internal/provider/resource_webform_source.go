@@ -43,6 +43,7 @@ func resourceWebformSource() *schema.Resource {
 				Optional: true,
 			},
 			"uncompress": {
+				Description:  "Whether to expand or not compressed archives.",
 				Type:         schema.TypeString,
 				Default:      "ask",
 				Optional:     true,

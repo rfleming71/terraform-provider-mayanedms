@@ -32,16 +32,19 @@ resource "mayanedms_document_type" "pdf" {
 
 ### Required
 
-- **label** (String)
+- `label` (String)
 
 ### Optional
 
-- **delete_time_period** (Number) Amount of time after which documents of this type will be moved to the trash Defaults to `30`.
-- **delete_time_unit** (String) Unit of delete_time_period. (minutes, hours, days) Defaults to `days`.
-- **filename_generator_backend** (String) The class responsible for producing the actual filename used to store the uploaded documents Defaults to `uuid`.
-- **filename_generator_backend_arguments** (String) The arguments for the filename generator backend as a YAML dictionary. Defaults to ``.
-- **id** (String) The ID of this resource.
-- **trash_time_period** (Number) Amount of time after which documents of this type in the trash will be deleted.
-- **trash_time_unit** (String) Unit of trash_time_period. (minutes, hours, days)
+- `delete_time_period` (Number) Amount of time after which documents of this type will be moved to the trash Defaults to `30`.
+- `delete_time_unit` (String) Unit of delete_time_period. (minutes, hours, days) Defaults to `days`.
+- `filename_generator_backend` (String) The class responsible for producing the actual filename used to store the uploaded documents Defaults to `uuid`.
+- `filename_generator_backend_arguments` (String) The arguments for the filename generator backend as a YAML dictionary. Defaults to ``.
+- `trash_time_period` (Number) Amount of time after which documents of this type in the trash will be deleted.
+- `trash_time_unit` (String) Unit of trash_time_period. (minutes, hours, days)
+
+### Read-Only
+
+- `id` (String) The ID of this resource.
 
 

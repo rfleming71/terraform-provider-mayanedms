@@ -22,8 +22,9 @@ func resourceIndexTemplateNode() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"expression": {
-				Type:     schema.TypeString,
-				Required: true,
+				Description: "Enter a python string expression to be evaluated",
+				Type:        schema.TypeString,
+				Required:    true,
 				// Avoid issues due to trailing whitespace
 				DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
 					suppressDiff := strings.TrimSpace(old) == strings.TrimSpace(new)
@@ -31,26 +32,29 @@ func resourceIndexTemplateNode() *schema.Resource {
 				},
 			},
 			"enabled": {
-				Type:     schema.TypeBool,
-				Default:  true,
-				Optional: true,
+				Description: "Causes this node to be visible and updated when document data changes.",
+				Type:        schema.TypeBool,
+				Default:     true,
+				Optional:    true,
 			},
 			"link_documents": {
-				Type:     schema.TypeBool,
-				Default:  false,
-				Optional: true,
+				Description: "Enable this option to have this node act as a container for documents and not as a parent for further nodes.",
+				Type:        schema.TypeBool,
+				Default:     false,
+				Optional:    true,
 			},
 			"index_id": {
 				Type:     schema.TypeInt,
 				Required: true,
 			},
 			"parent_id": {
-				Type: schema.TypeInt,
+				Type:     schema.TypeInt,
 				Required: true,
 			},
 			"node_id": {
-				Type: schema.TypeInt,
-				Computed: true,
+				Description: "Use this property when setting parent node ids.",
+				Type:        schema.TypeInt,
+				Computed:    true,
 			},
 		},
 	}
@@ -134,7 +138,7 @@ func resourceIndexTemplateNodeImport(ctx context.Context, d *schema.ResourceData
 
 	tflog.Debug(ctx, "Requesting IndexTemplateNode by Id", map[string]interface{}{
 		"index_id": indexTemplateId,
-		"id": id,
+		"id":       id,
 	})
 	indexTemplateNode, err := c.GetIndexTemplateNodeById(indexTemplateId, id)
 	if err != nil {

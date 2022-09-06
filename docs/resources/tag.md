@@ -24,11 +24,11 @@ resource "mayanedms_tag" "incoming" {
 
 ### Required
 
-- **color** (String) The RGB color values for the tag.
-- **label** (String) Short text used as the tag name.
+- `color` (String) The RGB color values for the tag.
+- `label` (String) Short text used as the tag name.
 
-### Optional
+### Read-Only
 
-- **id** (String) The ID of this resource.
+- `id` (String) The ID of this resource.
 
 
