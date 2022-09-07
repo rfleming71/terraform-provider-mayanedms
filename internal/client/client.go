@@ -79,6 +79,7 @@ type MayanEdmsClient interface {
 
 	CreateMetadataType(metadataType MetadataType) (*MetadataType, error)
 	GetMetadataTypeById(id int) (*MetadataType, error)
+	GetMetadataTypeByName(name string) (*MetadataType, error)
 	DeleteMetadataType(id int) error
 	UpdateMetadataType(metadataType MetadataType) (*MetadataType, error)
 }
