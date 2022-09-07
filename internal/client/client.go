@@ -11,6 +11,7 @@ import (
 
 type MayanEdmsClient interface {
 	GetDocumentTypeById(id int) (*DocumentType, error)
+	GetDocumentTypes() ([]DocumentType, error)
 	CreateDocumentType(documentType DocumentType) (*DocumentType, error)
 	UpdateDocumentType(documentType DocumentType) (*DocumentType, error)
 	DeleteDocumentType(id int) error
@@ -78,6 +79,7 @@ type MayanEdmsClient interface {
 
 	CreateMetadataType(metadataType MetadataType) (*MetadataType, error)
 	GetMetadataTypeById(id int) (*MetadataType, error)
+	GetMetadataTypeByName(name string) (*MetadataType, error)
 	DeleteMetadataType(id int) error
 	UpdateMetadataType(metadataType MetadataType) (*MetadataType, error)
 }
